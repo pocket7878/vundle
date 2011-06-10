@@ -14,52 +14,6 @@
 
      Sample `.vimrc`:
 
-     ```vim
-     set nocompatible               " be iMproved
-     filetype off                   " required!
-
-     set rtp+=~/.vim/bundle/vundle/
-     call vundle#rc()
-
-     " let Vundle manage Vundle
-     " required! 
-     Bundle 'gmarik/vundle'
-
-     " My Bundles here:
-     "
-     " original repos on github
-     Bundle 'tpope/vim-fugitive'
-     Bundle 'lokaltog/vim-easymotion'
-     Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-     " vim-scripts repos
-     Bundle 'L9'
-     Bundle 'FuzzyFinder'
-     Bundle 'rails.vim'
-     " non github repos
-     Bundle 'git://git.wincent.com/command-t.git'
-     " ...
-
-     filetype plugin indent on     " required! 
-     " or 
-     " filetype plugin on          " to not use the indentation settings set by plugins
-
-     "
-     " Brief help
-     "
-     " :BundleInstall  - install bundles (won't update installed)
-     " :BundleInstall! - update if installed
-     "
-     " :Bundles foo    - search for foo
-     " :Bundles! foo   - refresh cached list and search for foo
-     "
-     " :BundleClean    - confirm removal of unused bundles
-     " :BundleClean!   - remove without confirmation
-     "
-     " see :h vundle for more details
-     " Note: comments after Bundle command are not allowed..
-
-     ```
-
 3. Install configured bundles:
 
      Launch `vim`, run `:BundleInstall`. 
