@@ -77,13 +77,16 @@ func! s:sync(bang, bundle) abort
         if isdirectory(git_dir)
                 if !(a:bang) | return 0 | endif
                 let cmd = 'git pull'
-                if (has('win32') || has('win64'))
-                        "let cmd = substitute(cmd, '^cd ','cd /d ','')  " add /d switch to change drives
-                        let cmd = '"'.cmd.'"'                          " enclose in quotes
-                endif
+"                if (has('win32') || has('win64'))
+"                        let cmd = substitute(cmd, '^cd ','cd /d ','')  " add /d switch to change drives
+"                        let cmd = '"'.cmd.'"'                          " enclose in quotes
+"                endif
                 "cd to bundle path"
-                cd `=a:bundle.path()`
+                let cwd = getcwd()
+                lcd `=a:bundle.path()`
                 let l:result = s:system(cmd)
+                lcd `=cwd`
+
                 if l:result =~ "^Already up-to-date."
                         return 0
                 else
@@ -91,8 +94,13 @@ func! s:sync(bang, bundle) abort
                 endif
         else
                 let cmd = 'git clone '.a:bundle.uri.' '.a:bundle.path()
-                call s:system(cmd)
-                return 1
+                let l:result = s:system(cmd)
+                if l:result =~ ".*fatal:"
+                        call s:V.print_error('Module '.a:bundle.name." doesn't exists")
+                        return 0
+                else
+                        return 1
+                endif
         endif
 endf
 
