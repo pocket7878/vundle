@@ -84,6 +84,9 @@ func! s:sync(bang, bundle) abort
                 "cd to bundle path"
                 let cwd = getcwd()
                 lcd `=a:bundle.path()`
+                "Show instaling bundle
+                echon 'Updating '.a:bundle.name.'....'
+                redraw
                 let l:result = s:system(cmd)
                 lcd `=cwd`
 
@@ -94,6 +97,8 @@ func! s:sync(bang, bundle) abort
                 endif
         else
                 let cmd = 'git clone '.a:bundle.uri.' '.a:bundle.path()
+                echon 'Installing '.a:bundle.name.'....'
+                redraw
                 let l:result = s:system(cmd)
                 if l:result =~ ".*fatal:"
                         call s:V.print_error('Module '.a:bundle.name." doesn't exists")
